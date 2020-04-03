@@ -60,6 +60,8 @@
                 <p>
                     <%= comment.text %>
                 </p>
+                <% if(currentUser && comment.author.id.equals(currentUser._id)){
+                %>
                 <a
                     href="/campgrounds/<%= campground._id%>/comments/<%= comment._id %>/edit"
                     class="btn btn-xs btn-warning"
@@ -72,10 +74,9 @@
                 >
                     <button class="btn btn-xs btn-danger">Delete</button>
                 </form>
+                <% } %> <% }) %>
             </div>
         </div>
-        <% }) %>
     </div>
 </div>
-
 <%- include('../partials/footer') %>
