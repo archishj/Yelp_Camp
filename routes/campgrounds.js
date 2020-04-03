@@ -37,6 +37,7 @@ router.post("/", middleware.isLoggedIn, (req, res) => {
             console.log(err);
         } else {
             console.log(newlyCreated);
+            req.flash("success", "Successfully created campground");
             res.redirect("/campgrounds");
         }
     });
@@ -52,8 +53,9 @@ router.get("/:id", (req, res) => {
     Campground.findById(req.params.id)
         .populate("comments")
         .exec((err, foundCampground) => {
-            if (err) {
-                console.log(err);
+            if (err || !foundCampground) {
+                req.flash("error", "Campground not found");
+                res.redirect("back");
             } else {
                 res.render("campgrounds/show", { campground: foundCampground });
             }
@@ -76,6 +78,7 @@ router.put("/:id", middleware.checkCampgroundOwnership, (req, res) => {
             if (err) {
                 console.log(err);
             } else {
+                req.flash("success", "Campground successfully updated");
                 res.redirect("/campgrounds/" + req.params.id);
             }
         }
@@ -88,6 +91,7 @@ router.delete("/:id", middleware.checkCampgroundOwnership, (req, res) => {
         if (err) {
             res.redirect("/campgrounds");
         } else {
+            req.flash("success", "Comment successfully deleted");
             res.redirect("/campgrounds");
         }
     });
