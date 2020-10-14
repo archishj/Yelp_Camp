@@ -16,7 +16,7 @@ const commentRoutes = require("./routes/comments"),
     indexRoutes = require("./routes/index");
 
 mongoose.connect("mongodb://localhost:27017/yelp_camp", {
-    useNewUrlParser: true
+    useNewUrlParser: true,
 });
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
@@ -30,7 +30,7 @@ app.use(
     require("express-session")({
         secret: "FAPS is best",
         resave: false,
-        saveUninitialized: false
+        saveUninitialized: false,
     })
 );
 app.use(passport.initialize());
@@ -50,3 +50,5 @@ app.use("/campgrounds/:id/comments", commentRoutes);
 app.use("/campgrounds", campgroundsRoutes);
 
 app.listen(3000, () => console.log("YelpCamp has started"));
+
+// Whats up dog
